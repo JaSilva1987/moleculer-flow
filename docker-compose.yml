@@ -1,0 +1,87 @@
+version: '3.9'
+services:
+  sqlserver:
+    container_name: sqlserver
+    image: 'mcr.microsoft.com/mssql/server:2019-latest'
+    environment:
+      SA_PASSWORD: SqlServer2019!
+      ACCEPT_EULA: 'Y'
+      MSSQL_PID: Developer
+    ports:
+      - '1433:1433'
+  mssqltools:
+    container_name: mssqltools
+    image: mcr.microsoft.com/mssql-tools
+    depends_on:
+      - sqlserver
+    volumes:
+      - './entrypoint/integrador.sql:/tmp/integrador.sql'
+      - './entrypoint/isoweb.sql:/tmp/isoweb.sql'
+      - './entrypoint/isoweb.sql:/tmp/view_isoweb.sql'
+      - './entrypoint/init-database.sh:/tmp/init-database.sh'
+    command: /bin/bash ./tmp/init-database.sh
+  flow:
+    build: .
+    container_name: flow
+    ports:
+      - '9146:9146'
+    volumes:
+      - '.:/usr/app'
+    links:
+      - sqlserver
+      - elasticsearch
+    depends_on:
+      - sqlserver
+      - elasticsearch
+  apm-server:
+    container_name: apm
+    image: 'docker.elastic.co/apm/apm-server:8.4.2'
+    ports:
+      - target: 8200
+        published: 8200
+    depends_on:
+      - elasticsearch
+      - kibana
+    networks:
+      - elastic
+    command: |
+      apm-server -e
+        -E apm-server.rum.enabled=true
+        -E setup.kibana.host=kibana:5601
+        -E setup.template.settings.index.number_of_replicas=0
+        -E apm-server.kibana.enabled=true
+        -E apm-server.kibana.host=kibana:5601
+        -E output.elasticsearch.hosts=["elasticsearch:9200"]
+  elasticsearch:
+    container_name: elasticsearch
+    image: 'docker.elastic.co/elasticsearch/elasticsearch:8.4.2'
+    ports:
+      - target: 9200
+        published: 9200
+    volumes:
+      - 'elasticsearch-data:/usr/share/elasticsearch/data'
+    environment:
+      - discovery.type=single-node
+      - ES_JAVA_OPTS=-Xms1g -Xmx1g
+      - xpack.security.enabled=false
+    networks:
+      - elastic
+  kibana:
+    container_name: kibana
+    image: 'docker.elastic.co/kibana/kibana:8.4.2'
+    ports:
+      - '5601:5601'
+    depends_on:
+      - elasticsearch
+    environment:
+      - 'ELASTICSEARCH_URL=http://localhost:9200'
+      - xpack.apm.enabled=false
+    networks:
+      - elastic
+volumes:
+  elasticsearch-data:
+    driver: local
+networks:
+  elastic:
+    name: elastic
+    driver: bridge

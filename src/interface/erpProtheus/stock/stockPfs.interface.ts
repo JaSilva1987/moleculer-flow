@@ -1,0 +1,33 @@
+export interface IStockPfsProtheus {
+	empenho_previsto: number;
+	loja: string;
+	qtd_a_distribuir: number;
+	lote_fornec: string;
+	'sub-lote': string;
+	potencia_lote: number;
+	item: string;
+	emp_previsto2: number;
+	documento: string;
+	qtd_distribuir2: number;
+	cliente_fornecedor: string;
+	praca_lote: number;
+	qtd_original: number;
+	codigo_ean: string;
+	produto: string;
+	data: string;
+	dt_validade: string;
+	lote: string;
+	qtd_orig_segunda_um: number;
+	chave_acesso: string;
+	data_fabricacao: string;
+	num_desp: string;
+	qtd_emp_previsto2: number;
+	emp_do_lote: number;
+	serie: string;
+	local: string;
+	filial: string;
+	saldo_lote_segunda_um: number;
+	origem_lcto: string;
+	status?: number;
+	custo_unitario: number;
+}

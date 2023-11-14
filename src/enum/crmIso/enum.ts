@@ -1,0 +1,43 @@
+export enum StatusIso {
+	one = 1,
+	two = 2,
+	three = 3,
+	four = 4,
+	five = 5,
+	six = 6,
+	seven = 7,
+	eight = 8,
+	nine = 9,
+	ten = 10,
+	twelve = 12,
+	thirteen = 13,
+	fourteen = 14,
+	fifteen = 15,
+	sixteen = 16,
+	seventeen = 17,
+	eighteen = 18,
+	nineteen = 19,
+	twenty = 20,
+	twenty_one = 21,
+	twenty_two = 22,
+	twenty_three = 23,
+	twenty_four = 24,
+	twenty_five = 25,
+	twenty_six = 26,
+	twenty_seven = 27,
+	twenty_eight = 28,
+	twenty_nine = 29,
+	thirty = 30,
+	thirty_one = 31,
+	thirty_two = 32,
+	thirty_three = 33,
+	thirty_four = 34,
+	Thirty_five = 35,
+	Thirty_six = 36,
+	thirty_seven = 37
+}
+
+export enum StatusManutOf {
+	Processing = 'Recebido ManutOf',
+	ProcessedIso = 'Integrado Iso Crm'
+}
