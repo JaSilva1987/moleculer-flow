@@ -1,32 +1,7 @@
 {
   "name": "flow",
   "version": "1.34.0",
-  "description": "Microservices Integration Viveo",
-  "author": {
-    "name": "Time de Integração viveo"
-  },
-  "contributors": [
-    {
-      "name": "Fernanda Monteiro",
-      "email": "fernanda.monteiro@viveo.com.br"
-    },
-    {
-      "name": "Gabriel Pires",
-      "email": "p.gabriel.pires@viveo.com.br"
-    },
-    {
-      "name": "José Silva",
-      "email": "p.jose.lima@viveo.com.br"
-    },
-    {
-      "name": "Mauricio Silva",
-      "email": "mauricio.silva@viveo.com.br"
-    },
-    {
-      "name": "Camila Uchimura",
-      "email": "p.camila.uchimura@viveo.com.br"
-    }
-  ],
+  "description": "Monolito em Moleculer",
   "keywords": [
     "api-gateway",
     "microservices",
